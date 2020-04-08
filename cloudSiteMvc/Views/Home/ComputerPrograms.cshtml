@@ -1,0 +1,117 @@
+﻿@model cloudSiteMvc.ViewData.ComputerViewData
+
+@{
+	ViewBag.Title = Model.ComputerInfo.Name;
+}
+
+
+@Html.Partial("_LoginPartial")
+
+<div class="sticky-top mt-5 position-fixed d-none d-md-block">
+
+	<button class="btn btn-dark rounded-0 text-center" onclick="document.location.href='@Url.Action("Index", "Home")'">
+		<h2 class="fas fa-arrow-circle-left"></h2>
+	</button>
+</div>
+
+
+<div class="mt-0 mt-md-1">
+	<table class="col-12 col-md-8 offset-md-2 table table-striped table-active text-center">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Name</th>
+				<th scope="col">Version</th>
+			</tr>
+		</thead>
+		<tbody>
+		@foreach( var (app, i) in Model.ComputerInfo.Apps.Select((app, i) => (app, i)))
+		{
+			<tr class="text-center">
+				<td>@(i+1 + 10 * (Model.Pagination.CurrentPage - 1)) </td>
+				<td>@app.Name</td>
+				<td>@(app.Version ?? "-")</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+	
+	@if (Model.Pagination.Pages > 1)
+	{
+		<nav aria-label="Page navigation">
+			<div class="pagination justify-content-center mt-5">
+				<button class="btn btn-dark rounded-0"
+				        @(Model.Pagination.CurrentPage == 1 ? "disabled" : "")
+				        onclick="document.location.href = '@Url.Action("ComputerPrograms", "Home", new
+				                                           {
+					                                           computerName = Model.ComputerInfo.Name,
+					                                           page = Model.Pagination.CurrentPage - 1
+				                                           })'">
+					Previous
+				</button>
+
+				<button class="btn btn-outline-dark rounded-0"
+				        @(Model.Pagination.CurrentPage == 1 ? "disabled" : "")
+				        onclick="document.location.href = '@Url.Action("ComputerPrograms", "Home", new
+				                                           {
+					                                           computerName = Model.ComputerInfo.Name,
+					                                           page = 1
+				                                           })'">
+					1
+				</button>
+
+				@if (@Model.Pagination.CurrentPage >= 6)
+				{
+					<span>...</span>
+				}
+
+				@for (var page = Model.Pagination.CurrentPage - 3; page <= Model.Pagination.CurrentPage + 2; page++)
+				{
+					if (page > 1 && page < Model.Pagination.Pages)
+					{
+						<button *ngFor="let page of getNumberRange()"
+								class="btn btn-outline-dark rounded-0"
+								@(page == Model.Pagination.CurrentPage ? "disabled" : "")
+								onclick="document.location.href = '@Url.Action("ComputerPrograms", "Home", new
+								                                   {
+									                                   computerName = Model.ComputerInfo.Name,
+									                                   page
+								                                   })'">
+							@page
+						</button>
+					}
+				}
+
+				@if (@Model.Pagination.CurrentPage <= Model.Pagination.Pages - 4)
+				{
+					<span>...</span>
+				}
+
+				<button class="btn btn-outline-dark rounded-0"
+				        @(Model.Pagination.CurrentPage == Model.Pagination.Pages ? "disabled" : "")
+				        onclick="document.location.href = '@Url.Action("ComputerPrograms", "Home", new
+				                                           {
+					                                           computerName = Model.ComputerInfo.Name,
+					                                           page = Model.Pagination.Pages
+				                                           })'">
+					@Model.Pagination.Pages
+				</button>
+
+				<button class="btn btn-dark rounded-0"
+				        @(Model.Pagination.CurrentPage == Model.Pagination.Pages ? "disabled" : "")
+				        onclick="document.location.href = '@Url.Action("ComputerPrograms", "Home", new
+				                                           {
+					                                           computerName = Model.ComputerInfo.Name,
+															   page = Model.Pagination.CurrentPage + 1
+				                                           })'">
+					Next
+				</button>
+			</div>
+		</nav>
+	}
+	
+</div>
+
+
+
+

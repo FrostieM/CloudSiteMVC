@@ -1,0 +1,32 @@
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section styles
+{
+	@Styles.Render("~/Content/loginPart.css")
+}
+
+<div class="row m-0 align-content-center justify-content-center">
+	<div class="row col-sm-8 col-md-6 col-lg-5 m-0 p-0 text-center bg-dark shadow-lg rounded-bottom">
+
+		<div class="col-12 text-center">
+			<img src="https://img.icons8.com/clouds/100/000000/cloud.png" alt="cloud"/>
+		</div>
+
+		<div class="col-12">
+			<button class="col-5 pb-3 btn text-center text-light rounded-0 @(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "active" : "")">
+				@Html.ActionLink("Login", "Login", "Account")
+			</button>
+				
+			<button class="col-5 pb-3 btn text-center text-light rounded-0 @(ViewContext.RouteData.Values["Action"].ToString() == "Register" ? "active" : "")">
+				@Html.ActionLink("Register", "Register", "Account")
+			</button>
+		</div>
+		<div class="col">
+			@RenderBody()
+		</div>
+			
+
+	</div>
+</div>

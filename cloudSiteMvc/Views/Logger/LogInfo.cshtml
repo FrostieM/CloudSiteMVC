@@ -1,0 +1,32 @@
+﻿@model IEnumerable<cloudSiteMvc.Models.Logger>
+	
+@{
+	ViewBag.Title = "Users log";
+}
+
+@Html.Partial("_LoginPartial")
+
+<div class="mt-0 mt-md-1">
+	<table *ngIf="usersLogInfo" class="col-12 col-md-8 offset-md-2 table table-striped table-active text-center">
+		<thead class="thead-dark">
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Name</th>
+			<th scope="col">Date</th>
+			<th scope="col">Time</th>
+		</tr>
+		</thead>
+		<tbody>
+		@foreach (var (log, i) in Model.Select((log, i) => (log, i)))
+		{
+			<tr class="text-center">
+				<td>@(i+1)</td>
+				<td>@log.User.Email</td>
+				<td>@($"{log.DateTime: MM-dd-yyyy}")</td>
+				<td>@($"{log.DateTime: HH:mm:ss}")</td>
+			</tr>
+		}
+		
+		</tbody>
+	</table>
+</div>

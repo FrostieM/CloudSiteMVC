@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNet.Identity
+
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+{
+	@Html.AntiForgeryToken()
+
+	<div class="sticky-top bg-dark">
+		<div class="row m-0 p-0">
+			<h3>
+				<a class="col-auto text-light text-decoration-none align-self-center" href="@Url.Action("Index", "Home")"><i class="fab fa-cloudversify"></i><span class="ml-2">Cloud Site</span></a>
+			</h3>
+
+			<button type="button"
+			        class="btn btn-outline-light rounded-0"
+			        onclick="document.location.href = '@Url.Action("LogInfo", "Logger")'">
+				Check Log
+			</button>
+
+			<span class="ml-auto text-light mr-4 align-self-center">Hello, @User.Identity.GetUserName()</span>
+
+			<button type="submit" class="btn btn-outline-light rounded-0">Exit</button>
+
+		</div>
+
+	</div>
+}
+
+

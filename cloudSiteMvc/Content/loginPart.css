@@ -1,0 +1,13 @@
+﻿.active, button:hover {
+	border-bottom: 2px solid white;
+}
+
+button:focus {
+	outline: none;
+	box-shadow: none;
+}
+
+a, a:hover {
+	text-decoration: none;
+	color: white;
+}

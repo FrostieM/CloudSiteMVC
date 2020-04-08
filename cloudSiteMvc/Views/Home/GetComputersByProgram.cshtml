@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ComputerInfo>
+
+@foreach (var (computer, i) in Model.Select((comp, i) => (comp, i)))
+{
+	<div class="mt-5 col-12 col-md-5 col-xl-auto card p-0 bg-dark rounded @(i != 0 ? "ml-xl-5" : "")" 
+	     style="cursor: pointer" 
+	     onclick="window.location.href = '@Url.Action("ComputerPrograms", "Home", new { computerName = computer.Name})'">
+			
+		<div class="card-body row">
+
+			<div class="col col-lg-3 col-xl-auto p-0 d-none d-md-inline-block d-xl-none align-self-center">
+				<img src="@Url.Content("~/Content/Images/computer.svg")" alt="" class="img-fluid">
+			</div>
+
+			<h2 class="col-9 col-lg-6 col-xl-auto m-0 ml-auto p-0 pl-2 text-center align-self-center">
+				@computer.Name
+			</h2>
+
+			<div class="col-3 col-xl-auto m-0 ml-auto pl-2 p-0 align-self-center text-center">
+				<h1><span class="badge badge-light text-dark">@computer.AppsNum</span></h1>
+			</div>
+
+		</div>
+
+		<div class="card-footer text-center text-dark bg-light">
+			<span>@($"Last update: {computer.Date:MM-dd-yyyy, HH:mm:ss}")</span>
+		</div>
+
+	</div>
+}

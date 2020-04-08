@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ComputerInfo>
+
+@{
+	ViewBag.Title = "Home Page";
+}
+
+@Html.Partial("_LoginPartial")
+
+<div class="input-group">
+	<h4 class="fas fa-search text-center mt-3"></h4>
+	<input id="search" aria-label="Search" class="form-control mt-2 ml-1 mr-4 border-left-0 border-right-0 border-top-0" placeholder="Search" type="text">
+</div>
+
+<div id="results" class="row justify-content-md-between justify-content-xl-start col-auto text-light m-0">
+	
+
+
+</div>
+
+
+@section scripts
+{
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var timeout = null;
+			$('#results').load('@Url.Action("GetComputersByProgram", "Home")'); //first load will show all computers
+
+			$('#search').bind("keyup", function() {
+				clearTimeout(timeout);
+				timeout = setTimeout(function () {
+					let name = $('#search').val();
+					name = encodeURIComponent(name);
+
+					$('#results').load('@Url.Action("GetComputersByProgram", "Home")?programName='+name);
+				}, 300);
+			});
+
+		});
+	</script>
+}

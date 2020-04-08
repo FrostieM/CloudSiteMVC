@@ -1,0 +1,55 @@
+﻿@model cloudSiteMvc.Models.RegisterViewModel
+@{
+	ViewBag.Title = "Register";
+	Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+	@Html.AntiForgeryToken()
+
+
+	<div>
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+	</div>
+	<div>
+		<div>
+			@Html.TextBoxFor(m => m.Email, new { @class = "col-8 mt-4", placeholder = Html.DisplayNameFor(m => m.Email) })
+		</div>
+		<div>
+			@Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+		</div>
+
+	</div>
+
+	<div>
+		<div>
+			@Html.PasswordFor(m => m.Password, new { @class = "col-8 mt-4", placeholder = Html.DisplayNameFor(m => m.Password) })
+		</div>
+		<div>
+			@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+		</div>
+
+	</div>
+	<div>
+		<div>
+			@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "col-8 mt-4", placeholder = Html.DisplayNameFor(m => m.ConfirmPassword) })
+		</div>
+		<div>
+			@Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+		</div>
+
+	</div>
+
+	<div class="row ml-1 mt-4 col-auto justify-content-center">
+		<input type="submit" value="submit" class="col-auto btn btn-outline-light rounded-0">
+	</div>
+
+	@* Enable this once you have account confirmation enabled for password reset functionality
+		<p>
+			@Html.ActionLink("Forgot your password?", "ForgotPassword")
+		</p>*@
+}
+
+
